@@ -7,15 +7,17 @@ import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.function.FlatMapFunction;
 import org.apache.spark.api.java.function.Function2;
 import org.apache.spark.api.java.function.PairFunction;
+import org.apache.spark.sql.DataFrame;
+import org.apache.spark.sql.hive.HiveContext;
 import scala.Tuple2;
 
 import java.util.Arrays;
 
-public class WordCount {
+public class WordCountHive {
     private static final String APP_NAME;
 
     static {
-        APP_NAME = "com.warpbreaks.io.WordCount";
+        APP_NAME = "com.warpbreaks.io.WordCountHive";
     }
 
     private static final FlatMapFunction<String, String> WORDS_EXTRACTOR =
@@ -48,10 +50,10 @@ public class WordCount {
 
         System.setProperty("hadoop.home.dir", "C:\\Utils\\winutils\\");
         */
-        System.out.println("Apache Spark WordCount starting...");
+        System.out.println("Apache Spark WordCountHive starting...");
 
         if (args.length != 3) {
-            System.err.println("Usage: WordCount <spark master> <inputfile> <output directory>");
+            System.err.println("Usage: WordCountHive <spark master> <inputfile> <output directory>");
             System.exit(0);
         }
 
@@ -64,11 +66,19 @@ public class WordCount {
 
         JavaSparkContext context = new JavaSparkContext(conf);
 
+        HiveContext sqlContext = new org.apache.spark.sql.hive.HiveContext(context);
+
+        System.out.println("Metastore version: " + sqlContext.getConf("spark.sql.hive.metastore.version"));
+
+        System.exit(0);
+
+        DataFrame res = sqlContext.sql("show tables");
+        res.printSchema();
+
         JavaRDD<String> file = context.textFile(args[1]);
         JavaRDD<String> words = file.flatMap(WORDS_EXTRACTOR);
         JavaPairRDD<String, Integer> pairs = words.mapToPair(WORDS_MAPPER);
         JavaPairRDD<String, Integer> counter = pairs.reduceByKey(WORDS_REDUCER);
-
         counter.saveAsTextFile(args[2]);
     }
 }

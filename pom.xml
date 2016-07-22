@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.warpbreaks.io</groupId>
+    <artifactId>sparkapps-docker</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <name>sparkapps-docker</name>
+    <packaging>pom</packaging>
+
+    <!-- Define global versions here. -->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+        <scala.binary.version>2.10</scala.binary.version>
+        <scala.version>2.10.6</scala.version>
+        <spark.version>1.6.1</spark.version>
+        <mvn.compiler.version>3.1</mvn.compiler.version>
+        <spotify.docker.version>0.4.11</spotify.docker.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-core_${scala.binary.version}</artifactId>
+                <version>${spark.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-hive_${scala.binary.version}</artifactId>
+                <version>${spark.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.spark</groupId>
+                <artifactId>spark-sql_${scala.binary.version}</artifactId>
+                <version>${spark.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${mvn.compiler.version}</version>
+                </plugin>
+                <plugin>
+                    <groupId>com.spotify</groupId>
+                    <artifactId>docker-maven-plugin</artifactId>
+                    <version>${spotify.docker.version}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+
+	<modules>
+		<module>sparkapp-wordcount</module>
+        <!--<module>sparkhiveapp</module>-->
+	</modules>
+
+</project>
