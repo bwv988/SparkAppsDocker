@@ -1,3 +1,5 @@
+// Keeping this simple on purpose, so no error checking.
+
 package com.warpbreaks.io;
 
 import org.apache.spark.api.java.JavaPairRDD;
@@ -43,6 +45,7 @@ public class WordCount {
         JavaRDD<String> words =
                 lines.flatMap(line -> Arrays.asList(line.split(" ")).iterator());
 
+        // Count words.
         JavaPairRDD<String, Integer> counts = words
                 .mapToPair(w -> new Tuple2<>(w, 1))
                 .reduceByKey((x, y) -> x + y);

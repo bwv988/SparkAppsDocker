@@ -1,7 +1,7 @@
 # Dockerfile for Apache Spark application.
 # FIXME: Need to automate copying the application JAR.
 
-FROM bwv988/hadoop-spark
+FROM bwv988/ds-spark-base
 
 CMD mkdir -p /app
 
@@ -10,6 +10,6 @@ RUN chmod +x /app/entrypoint.sh
 
 COPY provision/config.properties /app/config.properties
 
-COPY sparkhiveapp-1.0-SNAPSHOT.jar /app/sparkhiveapp-1.0-SNAPSHOT.jar
+COPY sparkapp-hive-1.0-SNAPSHOT.jar /app/sparkapp-hive-1.0-SNAPSHOT.jar
 
 ENTRYPOINT ["/app/entrypoint.sh"]
