@@ -10,7 +10,6 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.warpbreaks.io</groupId>
     <artifactId>sparkhiveapp</artifactId>
     <version>1.0-SNAPSHOT</version>
 
@@ -40,7 +39,7 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <configuration>
                     <imageName>${project.artifactId}</imageName>
-                    <dockerDirectory>${basedir}/docker</dockerDirectory>
+                    <dockerDirectory>docker<dockerDirectory/>
                     <resources>
                         <resource>
                             <targetPath>/</targetPath>

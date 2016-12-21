@@ -1,7 +1,7 @@
 # Dockerfile for Apache Spark application.
 # FIXME: Need to automate copying the application JAR.
 
-FROM analytics/hadoop-spark
+FROM bwv988/ds-spark-base
 
 CMD mkdir -p /app
 

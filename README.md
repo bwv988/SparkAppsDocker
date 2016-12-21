@@ -5,7 +5,7 @@ This is a quick example that shows how to run a Java-based Apache Spark applicat
 ## Building
 
 ```bash
-mvn clean package docker:build
+mvn clean package
 ```
 
 ## Running
