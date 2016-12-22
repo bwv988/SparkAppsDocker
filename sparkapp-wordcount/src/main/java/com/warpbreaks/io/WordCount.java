@@ -1,3 +1,4 @@
+// Performs the usual word count in Java.
 // Keeping this simple on purpose, so no error checking.
 
 package com.warpbreaks.io;
@@ -19,11 +20,6 @@ public class WordCount {
     }
 
     public static void main(String[] args) {
-        /*
-        When running locally on Windows, we need to set the path to the winutils:
-
-        System.setProperty("hadoop.home.dir", "C:\\Utils\\winutils\\");
-        */
 
         if (args.length != 3) {
             System.err.println("Usage: WordCount <spark master> <input file> <output dir>");
@@ -31,9 +27,8 @@ public class WordCount {
         }
 
         String sparkMaster = args[0];
-        System.out.println("Running on Spark master: " + sparkMaster);
 
-        // Initialize Spark.
+        // Initialize Spark the traditional way.
         SparkConf conf = new SparkConf()
                 .setAppName(APP_NAME)
                 .setMaster(sparkMaster);

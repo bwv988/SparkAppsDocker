@@ -12,13 +12,13 @@ The code is organized into a number of Maven submodules; please consult the resp
 2. Example with Spark SQL and Hive
 
 ## Building the examples
-First build the applications:
+Firstly, let's build the maven modules & docker images:
 
 ```bash
 mvn clean package
 ```
 
-Then verify the docker images have been created:
+Then verify that images have been created:
 
 ```bash
 docker images

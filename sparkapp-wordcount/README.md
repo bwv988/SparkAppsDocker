@@ -3,7 +3,11 @@
 ## Prerequisites
 
 ```bas
+# Start playground environment.
 bin/sandbox.sh spark start
+
+# Copy a data set file to the shared working directory.
+
 ```
 FIXME
 
