@@ -26,7 +26,7 @@ docker images
 
 ## Implementation notes
 
-* All examples will run without modification using my [Data Science sandbox for Docker](https://github.com/bwv988/datascience-docker-sandbox).
+* All examples will run without modification using my [Data Science playground for Docker](https://github.com/bwv988/datascience-playground).
 * Java 8 [lambda expressions](http://docs.oracle.com/javase/tutorial/java/javaOO/lambdaexpressions.html) are used throughout the code.
 * Docker images are build using Spotify's [Docker Maven plugin](https://github.com/spotify/docker-maven-plugin).
 

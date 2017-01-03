@@ -1,7 +1,7 @@
-// Very small example that shows how to connect to Hive via Spark, create a table and perform queries.
+// Very small example that shows how to access Hive through the Spark session.
 // RS22122016
 //
-// Prerequisite: See readme!
+// Prerequisite: See README.md!
 
 
 package com.warpbreaks.io;
@@ -9,6 +9,7 @@ package com.warpbreaks.io;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
+import org.apache.spark.sql.DataFrameWriter;
 
 public class HiveApp {
     private static final String APP_NAME;
@@ -45,29 +46,15 @@ public class HiveApp {
                 .csv(CSV_FILE);
         df.show();
 
-        // First, let's create a simple table in Hive.
-        /*spark.sql("CREATE TABLE IF NOT EXISTS src (key INT, value STRING)");
+        // Let's now save the data frame to Hive.
+        spark.sql("DROP TABLE IF EXISTS scarlatti");
+        DataFrameWriter<Row> out = df.write();
+        out.saveAsTable("scarlatti");
 
-        // Create a few rows.
-        Random rndGen = new Random();
-        for (int i = 0; i < 10; i++) {
-            int id = rndGen.nextInt(100);
+        long numMinor = spark.sql("SELECT K from scarlatti WHERE Key LIKE '%minor'").count();
+        long numMajor = spark.sql("SELECT K from scarlatti WHERE Key LIKE '%major'").count();
 
-            String sqlQuery = String.format("INSERT INTO src VALUES (%d, 'Hello Hive from Java - %d')", id, id);
-            System.out.println("Query: " + sqlQuery);
-            spark.sql(sqlQuery)sparspark;
-        }
-
-        // Queries are expressed in HiveQL
-        spark.sql("SELECT * FROM src").show();
-
-
-        // Aggregation queries are also supported.
-        spark.sql("SELECT COUNT(*) FROM src").show();
-
-        // The results of SQL queries are themselves DataFrames and support all normal functions.
-        spark.sql("SELECT key, value FROM src WHERE key < 5 ORDER BY key").show();
-*/
+        System.out.format("\n\nNumber of Scarlatti sonatas\n ---> in minor: %d\n ---> in major: %d\n\n", numMinor, numMajor);
 
         spark.stop();
         System.exit(0);
