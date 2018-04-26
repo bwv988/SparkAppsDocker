@@ -31,7 +31,6 @@ hadoop fs -mkdir /data
 
 # Need to do this via exchange folder.
 sudo cp ../datasets/scarlatti/scarlatti_sonatas.csv ~/ds-playground/workdir/
-hadoop fs -mkdir /data
 hadoop fs -put /workdir/scarlatti_sonatas.csv /data
 
 # Check that all is good.
@@ -41,7 +40,7 @@ hadoop fs -ls /data
 ## Run app
 
 ```bash
-docker run --rm --net dockercompose_default  --volumes-from spark-master sparkapp-hive  spark://spark-master:7077
+ocker run --rm --net docker-compose_default --volumes-from spark-master sparkapp-hive  spark://spark-master:7077
 ```
 
 ## Notes
